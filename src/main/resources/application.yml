@@ -1,0 +1,12 @@
+spring:
+    profiles:
+        active: prod
+    application:
+        name: demoweb
+server:
+    servlet:
+        context-path: /demoweb
+
+mybatis:
+    mapper-locations: classpath:mapper/*.xml
+    type-aliases-package: com.example.demo.mapper

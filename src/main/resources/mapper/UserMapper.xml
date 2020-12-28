@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.po.User">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="chinese_name" jdbcType="VARCHAR" property="chineseName"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="baseColumn">
+        id,user_name,chinese_name,password,create_time,update_time
+    </sql>
+    <select id="getById" parameterType="long" resultMap="BaseResultMap">
+        select *
+        from user
+        where id = #{id}
+    </select>
+
+    <insert id="insertOne">
+        insert into user (user_name,chinese_name,password,create_time,update_time)
+        values (#{user.userName},#{chineseName},#{user.password},#{user.createTime},#{user.updateTime})
+    </insert>
+    <insert id="batchInsert" parameterType="list">
+        insert into user (user_name,chinese_name,password,create_time,update_time)
+        VALUES
+        <foreach collection="userList" item="o" index="index" separator=",">
+            (#{o.userName},#{o.chineseName},#{o.password},#{o.createTime},#{o.updateTime})
+        </foreach>
+    </insert>
+
+</mapper>
