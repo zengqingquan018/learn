@@ -6,6 +6,8 @@ HELP.md
 
 ### TARGER目录下代码不需要提交 ###
 **/target/**
+/src/main/resources/application-prod.yml
+.gradle/
 
 
 
