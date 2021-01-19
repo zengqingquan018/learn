@@ -4,6 +4,7 @@ package com.example.demo.filter;
 import com.alibaba.fastjson.JSONObject;
 import com.example.demo.common.BaseConstants;
 import com.example.demo.common.ResponseResult;
+import com.example.demo.dto.UserDto;
 import com.example.demo.enums.ResponseEnums;
 import com.example.demo.po.User;
 import com.example.demo.utils.UriUtils;
@@ -20,6 +21,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.springframework.stereotype.Component;
 
 /**
  * 描述：
@@ -36,6 +38,7 @@ public class LoginFilter implements Filter {
 
     static {
         UN_FILETER_URI.add("/**/demo/**");
+        UN_FILETER_URI.add("/**/user/**");
     }
 
 
@@ -51,10 +54,11 @@ public class LoginFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         if (!UriUtils.isInclude(httpServletRequest.getRequestURI(), UN_FILETER_URI)) {
             HttpSession session = httpServletRequest.getSession();
-            User user = (User) session.getAttribute(BaseConstants.USER);
+            UserDto user = (UserDto) session.getAttribute(BaseConstants.USER);
             if (null == user) {
                 ResponseResult responseResult = new ResponseResult(ResponseEnums.CODE_403);
                 String resultJson = JSONObject.toJSONString(responseResult);
+                JSONObject.parseObject(resultJson,ResponseResult.class);
                 httpServletResponse.setContentType(MEDIA_TYPE);
                 httpServletResponse.getWriter().write(resultJson);
                 return;

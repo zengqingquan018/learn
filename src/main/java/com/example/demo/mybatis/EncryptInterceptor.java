@@ -31,8 +31,12 @@ import org.springframework.stereotype.Component;
         @Signature(type = ParameterHandler.class, method = "setParameters", args = PreparedStatement.class),
 })
 public class EncryptInterceptor implements Interceptor {
+
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
+        //3
+
+
         ParameterHandler parameterHandler = (ParameterHandler) invocation.getTarget();
         // 获取参数对像，即 mapper 中 paramsType 的实例
         Field parameterField = parameterHandler.getClass().getDeclaredField("parameterObject");
@@ -41,15 +45,19 @@ public class EncryptInterceptor implements Interceptor {
         Object parameterObject = parameterField.get(parameterHandler);
         if (parameterObject != null) {
             if (parameterObject instanceof ParamMap) {
+                // 多参数或者入参为list
                 ParamMap paramMap = (ParamMap) parameterObject;
+                // 包装成paramMap会多产生key为paramn，值为入参的对象，使用hashCode防止重复加密
                 List<Integer> hashList = new ArrayList<>();
                 paramMap.forEach((k, v) -> {
                     if (v instanceof List) {
+                        // 多参数中一个入参为list。遍历list加密
                         if (!hashList.contains(v.hashCode())) {
                             ((List) v).forEach(this::setSensitiveData);
                             hashList.add(v.hashCode());
                         }
                     } else {
+                        //多参数中参数不为list
                         if (!hashList.contains(v.hashCode())) {
                             setSensitiveData(v);
                             hashList.add(v.hashCode());
@@ -83,6 +91,7 @@ public class EncryptInterceptor implements Interceptor {
     @Override
     public Object plugin(Object target) {
         return Plugin.wrap(target, this);
+        //2
     }
 
     @Override

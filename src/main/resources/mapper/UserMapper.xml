@@ -33,4 +33,11 @@
         </foreach>
     </insert>
 
+    <insert id="batchInsert2" parameterType="list">
+        insert into user (user_name,chinese_name,password,create_time,update_time)
+        VALUES
+        <foreach collection="userList" item="o" index="index" separator=",">
+            (#{o.userName},#{o.chineseName},#{o.password},#{o.createTime},#{o.updateTime})
+        </foreach>
+    </insert>
 </mapper>

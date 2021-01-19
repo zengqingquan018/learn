@@ -1,5 +1,7 @@
 package com.example.demo.exception;
 
+import com.example.demo.enums.ResponseEnums;
+
 /**
  * 描述：
  *
@@ -13,6 +15,12 @@ public class BusinessException extends RuntimeException {
     public BusinessException(Integer code, String message) {
         super(message);
         this.code = code;
+    }
+
+    public BusinessException(String message) {
+        super(message);
+        code = ResponseEnums.CODE_405.getCode();
+
     }
 
     public Integer getCode() {

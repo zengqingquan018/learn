@@ -31,7 +31,9 @@ public class DecryptInterceptor implements Interceptor {
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
+        //默认插件执行前
         Object resultObject = invocation.proceed();
+        // 默认插件执行后
         if (Objects.isNull(resultObject)) {
             return null;
         }
@@ -51,7 +53,6 @@ public class DecryptInterceptor implements Interceptor {
             }
         }
         return resultObject;
-
     }
 
     private boolean needToDecrypt(Object object) {

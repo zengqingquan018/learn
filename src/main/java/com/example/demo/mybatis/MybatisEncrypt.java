@@ -48,6 +48,7 @@ public class MybatisEncrypt {
         return paramsObject;
     }
 
+
     public static <T> T decrypt(T result) throws IllegalAccessException {
         //取出resultType的类
         Class<?> resultClass = result.getClass();

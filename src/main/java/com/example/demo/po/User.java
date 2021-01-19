@@ -16,6 +16,7 @@ public class User {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @ApiModelProperty(value = "主键", name = "id")
+    @Id
     private Long id;
 
     /**

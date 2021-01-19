@@ -79,7 +79,7 @@ public class AesUtil {
             dcipher.init(Cipher.DECRYPT_MODE, secretKeySpec);
             return new String(dcipher.doFinal((encryptBytes)), DEFAULT_CHARSET);
         } catch (Exception e) {
-            logger.warn("解密失败:{}", e.getMessage());
+            logger.warn(":{}", e.getMessage());
             return null;
         }
     }
