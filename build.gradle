@@ -43,7 +43,7 @@ dependencies {
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.12'
     //implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-server'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.1.12.RELEASE'
-
+    
 }
 
 test {
